@@ -91,12 +91,12 @@ class Selection(object):
 
 
 def test_selection():
-    from graph import Graph
+    from .graph import Graph
     from gum.lib.mock import Fake
 
     class FakeGraph():
         density = 10
-        numframes = (lambda(self): 5000)
+        numframes = (lambda self: 5000)
         _view_start = 100.1
         _view_end = 200.1
         changed = Fake()

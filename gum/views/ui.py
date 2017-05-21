@@ -14,11 +14,11 @@ sys.argv[0] = constants.__appname__
 import gum
 from gum import app
 from gum.controllers import Editor, editor
-from waveform import GraphView, GraphScrollbar
-from filedialog import OpenFileDialog, SaveFileDialog, SaveSelectionFileDialog
+from .waveform import GraphView, GraphScrollbar
+from .filedialog import OpenFileDialog, SaveFileDialog, SaveSelectionFileDialog
 import copy
 import os.path
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import gobject
 import gtk
 gtk.gdk.threads_init()
@@ -237,7 +237,7 @@ class EditorWindow(gtk.Window):
             # Extract the actual filename
             if filename.startswith(prefix):
                 filename = filename[len(prefix):]
-            filename = urllib.unquote(filename)
+            filename = urllib.parse.unquote(filename)
             self._do_open(filename)
 
     def display_error(self, widget, title, text):

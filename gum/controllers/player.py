@@ -142,8 +142,8 @@ def testPlayer():
     t2.join()
 
     # Testing stop
-    print 
-    print "Testing stop(): the sound should stop after 0.3 seconds."
+    print() 
+    print("Testing stop(): the sound should stop after 0.3 seconds.")
     player.thread_play()
     sleep(0.3)
     player.stop()
@@ -159,4 +159,4 @@ def testPlayer():
 
 if __name__ == '__main__':
     testPlayer()
-    print "done"
+    print("done")

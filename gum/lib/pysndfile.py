@@ -44,10 +44,10 @@ from ctypes import cdll, Structure, c_int, pointer, POINTER, \
         create_string_buffer, c_char_p, sizeof, string_at
 try:
     from ctypes import c_int64
-except ImportError, e:
-    print "Cannot import c_int64 from ctypes: if you are on ubuntu/debian," +\
+except ImportError as e:
+    print("Cannot import c_int64 from ctypes: if you are on ubuntu/debian," +\
         " this is likely because ctypes was compiled with libffi. see" +\
-        " https://launchpad.net/ubuntu/+source/python2.5/+bug/71914"
+        " https://launchpad.net/ubuntu/+source/python2.5/+bug/71914")
     raise e
 
 from numpy.ctypeslib import ndpointer
@@ -255,11 +255,11 @@ py_to_snd_endianness_dic = {
 # Those following dic are used internally to get user-friendly values from
 # sndfile enum
 SND_TO_PY_ENCODING = \
-        dict([(i, j) for j, i in py_to_snd_encoding_dic.items()])
+        dict([(i, j) for j, i in list(py_to_snd_encoding_dic.items())])
 SND_TO_PY_FILE_FORMAT = \
-        dict([(i, j) for j, i in py_to_snd_file_format_dic.items()])
+        dict([(i, j) for j, i in list(py_to_snd_file_format_dic.items())])
 SND_TO_PY_ENDIANNESS = \
-        dict([(i, j) for j, i in py_to_snd_endianness_dic.items()])
+        dict([(i, j) for j, i in list(py_to_snd_endianness_dic.items())])
 
 #==========================================
 # Check that libsndfile is expected version
@@ -283,8 +283,8 @@ def get_libsndfile_version():
     major, minor, micro = [i for i in version.split('.')]
     try:
         micro   = int(micro)
-    except ValueError,e:
-        print "micro is "  + str(micro) 
+    except ValueError as e:
+        print("micro is "  + str(micro)) 
         micro, prerelease   = micro.split('pre')
 
     return int(major), int(minor), int(micro), prerelease
@@ -297,9 +297,9 @@ if MICRO > 25:
         prestr  = "No"
     else:
         prestr  = "%s" % PRERELEASE
-    print "WARNING libsndfile-%d.%d.%d (prerelease: %s) "\
+    print("WARNING libsndfile-%d.%d.%d (prerelease: %s) "\
         "this has only been tested with libsndfile 1.0.17 for now, "\
-        "use at your own risk !" % (MAJOR, MINOR, MICRO, prestr)
+        "use at your own risk !" % (MAJOR, MINOR, MICRO, prestr))
 
 #================
 # Python wrappers
@@ -349,7 +349,7 @@ class _sf_format_info(Structure):
                 (self.format, self.name, self.extension)
 
     def __repr__(self):
-        print self.__str__()
+        print(self.__str__())
 
 class _sndfile(Structure):
     pass
@@ -632,15 +632,15 @@ class sndfile:
         # Fill the sfinfo struct
         sfinfo.frames       = c_int64(0)
         if type(channels) is not int:
-            print "Warning, channels is converted to int, was %s" % \
-                    str(type(channels))
+            print("Warning, channels is converted to int, was %s" % \
+                    str(type(channels)))
             sfinfo.channels     = int(channels)
         else:
             sfinfo.channels     = channels
 
         if type(samplerate) is not int:
-            print "Warning, sampling rate is converted to int, was %s" % \
-                    str(type(samplerate))
+            print("Warning, sampling rate is converted to int, was %s" % \
+                    str(type(samplerate)))
             sfinfo.samplerate   = int(samplerate)
         else:
             sfinfo.samplerate   = samplerate
@@ -967,21 +967,21 @@ out of luck, because its implementation of POSIX open is broken)"""
 
 def supported_format():
     # XXX: broken
-    return py_to_snd_file_format_dic.keys()
+    return list(py_to_snd_file_format_dic.keys())
 
 def supported_endianness():
     # XXX: broken
-    return py_to_snd_endianness_dic.keys()
+    return list(py_to_snd_endianness_dic.keys())
 
 def supported_encoding():
     # XXX: broken
-    return py_to_snd_encoding_dic.keys()
+    return list(py_to_snd_encoding_dic.keys())
 
 def _num2int64(value):
     """ Convert a python objet to a c_int64, safely."""
-    if not (type(value) == int or type(value) == long):
-        value = long(value)
-        print "Warning, converting %s to long" % str(value)
+    if not (type(value) == int or type(value) == int):
+        value = int(value)
+        print("Warning, converting %s to long" % str(value))
     c_value = c_int64(value)
     if not c_value.value == value:
         raise RuntimeError("Error while converting %s to a c_int64"\

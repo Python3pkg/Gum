@@ -27,7 +27,7 @@ def open_(filename=None):
     new_sound_loaded(editor, graph, sel, curs)
 
 def list_effects():
-    l = effect.effects.keys()
+    l = list(effect.effects.keys())
     l.sort()
     return l
 
@@ -42,10 +42,10 @@ def load_all_plugins():
 
     for filename in plugins:
         try:
-            execfile(filename, globals())
-        except Exception, e:
-            print "Error while loading plugin: '%s'" % filename
-            print e
+            exec(compile(open(filename).read(), filename, 'exec'), globals())
+        except Exception as e:
+            print("Error while loading plugin: '%s'" % filename)
+            print(e)
 
     sys.path.remove(PLUGINS_DIR)
 

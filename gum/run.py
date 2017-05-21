@@ -16,7 +16,7 @@ def run():
         try:
             app.open_(filename)
             opened = True
-        except Exception, e:
+        except Exception as e:
             ui.display_error("Error", str(e))
 
     # Load an empty sound if no file was open.

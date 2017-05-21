@@ -6,7 +6,7 @@ ALSA backend.
 """
 
 from os.path import abspath, dirname, join
-from constants import __version__, __url__
+from .constants import __version__, __url__
 
 basedir = dirname(abspath(__file__))
 datadir = join(basedir, 'data')

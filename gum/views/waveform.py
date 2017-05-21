@@ -515,7 +515,7 @@ if __name__ == '__main__':
         def randomized():
             from random import random        
             channels = [[((random() - 0.5) * 2, (random() - 0.5) * 2)
-                       for i in xrange(500)]]
+                       for i in range(500)]]
             graph = Mock({"channels": channels,
                           "set_width": None,
                           "frames_info": (0, 0, 0)})
@@ -526,7 +526,7 @@ if __name__ == '__main__':
 
         def sine():
             from math import sin
-            sine = [sin(2 * 3.14 * 0.01 * x) for x in xrange(500)]
+            sine = [sin(2 * 3.14 * 0.01 * x) for x in range(500)]
             channels = [[(i, i) for i in sine]]
             graph = Mock({"channels": channels, "set_width": None,
                           "frames_info": (0, 0, 0)})
@@ -537,7 +537,7 @@ if __name__ == '__main__':
 
         def sines():
             from math import sin
-            sine = [sin(2 * 3.14 * 0.01 * x) for x in xrange(500)]
+            sine = [sin(2 * 3.14 * 0.01 * x) for x in range(500)]
             channels = [[(i, i) for i in sine], [(i, i) for i in sine]]
 
             graph = Mock({"channels": channels, "set_width": None,

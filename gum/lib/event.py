@@ -27,8 +27,8 @@ class Signal(object):
 
     def connect(self, slot):
         if inspect.ismethod(slot):
-            key = (slot.im_func, id(slot.im_self))
-            self.__slots[key] = slot.im_self
+            key = (slot.__func__, id(slot.__self__))
+            self.__slots[key] = slot.__self__
         else:
             host = _FuncHost(slot)
             self.connect(host.meth)
@@ -37,7 +37,7 @@ class Signal(object):
 
     def disconnect(self, slot):
         if inspect.ismethod(slot):
-            key = (slot.im_func, id(slot.im_self))
+            key = (slot.__func__, id(slot.__self__))
             if key in self.__slots:
                 self.__slots.pop(key)
         else:

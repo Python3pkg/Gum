@@ -118,13 +118,13 @@ class SaveSelectionFileDialog(SaveFileDialog):
 
 def test():
     d = FileDialog()
-    print d.get_filename()
+    print(d.get_filename())
 
     d = OpenFileDialog()
-    print d.get_filename()
+    print(d.get_filename())
 
     d = SaveFileDialog()
-    print d.get_filename()
+    print(d.get_filename())
 
 if __name__ == '__main__':
     test()

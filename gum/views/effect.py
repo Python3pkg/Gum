@@ -52,7 +52,7 @@ class EffectDialog(gtk.Dialog):
 
     def callback(self, parameters):
         """Reaffect this attribute with a method that will apply the effect."""
-        print parameters
+        print(parameters)
 
 
 if __name__ == '__main__':

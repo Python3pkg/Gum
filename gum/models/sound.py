@@ -385,7 +385,7 @@ def testSound():
     try:
         snd.save()
     except:
-        print "OK"
+        print("OK")
     else:
         assert False
 

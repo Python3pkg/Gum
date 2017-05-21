@@ -20,7 +20,7 @@ def negate(x):
 
 def fade(x, type='in'):
     N = len(x)
-    curve = numpy.array(range(N)) / float(N - 1)
+    curve = numpy.array(list(range(N))) / float(N - 1)
     if type == 'out':
         curve = reverse(curve)
     if x.ndim > 1:
@@ -56,13 +56,13 @@ if __name__ == '__main__':
     fx = effects['Reverse']
 
     snd = Sound()
-    snd.frames = numpy.array(range(10))
+    snd.frames = numpy.array(list(range(10)))
     fx(snd, 3, 6)
     assert snd.frames.tolist() == [0, 1, 2, 5, 4, 3, 6, 7, 8, 9]
     snd.undo()
     assert snd.frames.tolist() == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    snd.frames = numpy.array(zip(range(8), range(8)))
+    snd.frames = numpy.array(list(zip(list(range(8)), list(range(8)))))
     fx(snd, 3, 6)
     assert snd.frames.tolist() == [[0, 0], [1, 1], [2, 2], [5, 5],
                                   [4, 4], [3, 3], [6, 6], [7, 7]]

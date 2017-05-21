@@ -7,7 +7,7 @@ try:
     from gum import fast
 except ImportError:
     HAVE_FAST = False
-    print "Warning: 'fast' module not found. You won't have fast display!"
+    print("Warning: 'fast' module not found. You won't have fast display!")
 else:
     HAVE_FAST = True
 
@@ -54,7 +54,9 @@ if HAVE_FAST:
     _condense = fast._condense
 
 
-def intersection((a, b), (x, y)):
+def intersection(xxx_todo_changeme, xxx_todo_changeme1):
+    (a, b) = xxx_todo_changeme
+    (x, y) = xxx_todo_changeme1
     if b <= x or a >= y:
         return None
     else:
@@ -91,8 +93,8 @@ class OverviewCache(object):
                     tail = _overview(self._data, b, start + width - b, density)
                 i, j = [int(x - c_start) for x in inter]
                 body = zip(*self._cache[3])[i:j]
-                ov = zip(*head) + body + zip(*tail)
-                ov = zip(*ov)
+                ov = list(zip(*head)) + body + list(zip(*tail))
+                ov = list(zip(*ov))
                 ov = [list(t) for t in ov]
                 self._cache = (start, width, density, ov)
                 done = True
@@ -285,7 +287,7 @@ DTYPE = 'float64'
 def test_overview():
     import numpy
     l = 1000000
-    b = numpy.array(range(l), DTYPE)
+    b = numpy.array(list(range(l)), DTYPE)
     assert len(_condense(b, 0, l, l/10)) == 10
     assert len(_condense(b, 0, l, l/100)) == 100
 
@@ -297,7 +299,7 @@ def test_middle():
     sound.frames = []
     g = Graph(sound)
     for nframes, mid in [(4, 1.5), (9, 4), (10, 4.5)]:
-        sound.frames = numpy.array(range(nframes))
+        sound.frames = numpy.array(list(range(nframes)))
         g.set_sound(sound)
         assert g.middle() == mid
 
@@ -315,7 +317,7 @@ def test_Graph():
     
     sound = Mock({"numchan": 1})
     sound.changed = Fake()
-    sound.frames = numpy.array(range(1000), DTYPE)
+    sound.frames = numpy.array(list(range(1000)), DTYPE)
 
     c = Graph(sound)
     c.set_width(200)
@@ -323,7 +325,7 @@ def test_Graph():
 
     class Foo:
         def foo(self):
-            print "Changed."
+            print("Changed.")
     f = Foo()
     c = Graph(sound)
     c.changed.connect(f.foo)
@@ -393,7 +395,7 @@ def test_zoom():
     assert o == [[(1, 1), (2, 2), (3, 3), (4, 4)]], o
 
     g.set_width(100)
-    data = numpy.array(range(3241))
+    data = numpy.array(list(range(3241)))
     sound.frames = data
     g.zoom_out_full()
     g._zoom(factor=0.5)
@@ -488,7 +490,7 @@ def test_channels():
     from gum.lib.mock import Mock, Fake
     sound = Mock({"numchan": 1})
     sound.changed = Fake()
-    sound.frames = numpy.array(range(1000000), DTYPE)
+    sound.frames = numpy.array(list(range(1000000)), DTYPE)
     g = Graph(sound)
 
     for w in [1, 10, 11, 12, 13, 14, 15, 29, 54, 12.0, 347, 231., 1030]:
@@ -515,7 +517,7 @@ def test_OverviewCache():
     assert o3 == o
     assert o3 is not o
 
-    cache.set_data(numpy.array(range(1000), DTYPE))
+    cache.set_data(numpy.array(list(range(1000)), DTYPE))
     o1 = cache.get(start=0, width=10, density=10)
     o2 = cache.get(start=4, width=10, density=10)
     o3 = cache.get(start=0, width=10, density=10)

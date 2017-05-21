@@ -1,1 +1,1 @@
-from effect import EffectDialog
+from .effect import EffectDialog

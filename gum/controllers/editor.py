@@ -3,8 +3,8 @@
 # Licensed under the Revised BSD License.
 
 from gum.models import Sound, clipboard, sound
-from player import Player
-import effect
+from .player import Player
+from . import effect
 from gum.lib.event import Signal
 from gum.lib import edit
 import traceback
@@ -34,7 +34,7 @@ class Editor(object):
             result = None
             try:
                 result = method(self, *args, **kwargs)
-            except Exception, e:
+            except Exception as e:
                 self.error("Error", str(e))
                 traceback.print_exc()
             return result
@@ -223,7 +223,7 @@ def test_fix_selection():
     graph.changed = Fake()
     selection = Selection(graph, Fake())
     sound = Sound()
-    sound.frames = numpy.array(range(1000))
+    sound.frames = numpy.array(list(range(1000)))
     editor = Editor(sound, Fake(), Fake(), selection)
     frames = sound.frames
     selection.set(0, 999)
@@ -240,7 +240,7 @@ def test_fix_selection():
     graph.changed = Fake()
     selection = Selection(graph, Fake())
     sound = Sound()
-    sound.frames = numpy.array(range(1000))
+    sound.frames = numpy.array(list(range(1000)))
     editor = Editor(sound, Fake(), Fake(), selection)
     frames = sound.frames
     selection.set(10, 999)

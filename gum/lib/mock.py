@@ -3,7 +3,7 @@ import types
 class Mock(object):
 
     def __init__(self, dico):
-        for name, result in dico.items():
+        for name, result in list(dico.items()):
             m = self._make_method(name, result)
             setattr(self, name, m)
             
